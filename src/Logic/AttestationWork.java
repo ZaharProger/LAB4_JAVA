@@ -1,5 +1,7 @@
 package Logic;
 
+import Logic.Student;
+
 //Аттестационная работа
 public abstract class AttestationWork {
     protected byte questionsAmount;
@@ -9,7 +11,7 @@ public abstract class AttestationWork {
     }
 
     //Подсчет среднего арифметического за ответы на вопросы
-    protected double examine(){
+    public double startWork(){
         double sum = 0;
         byte question = 0;
         while (question < questionsAmount){
@@ -20,5 +22,5 @@ public abstract class AttestationWork {
         return sum / questionsAmount;
     }
     //Определение оценки (в зависимости от типа работы)
-    public abstract void calculateResult(Student student);
+    public abstract void calculateResult(Student student, double workResult);
 }

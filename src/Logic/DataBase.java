@@ -3,7 +3,6 @@ package Logic;
 import org.sqlite.JDBC;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 //БД
 public class DataBase {
@@ -14,6 +13,10 @@ public class DataBase {
     public DataBase(){
         data = new ArrayList<>();
         connection = null;
+    }
+
+    public ArrayList<Student> getData(){
+        return data;
     }
 
     public String connect(String name){
@@ -63,10 +66,6 @@ public class DataBase {
         return result;
     }
 
-    public ArrayList<Student> getData(){
-        return data;
-    }
-
     public String addData(Student student){
         String result;
         try (Statement statement = connection.createStatement()){
@@ -99,19 +98,6 @@ public class DataBase {
         }
 
         return result;
-    }
-
-    public void setSearchFilter(byte type, String key){
-        switch (type) {
-            case 1 -> data.stream().filter(student -> Integer.parseInt(key) == student.getId());
-            case 2 -> data.stream().filter(student -> Byte.parseByte(key) == (byte) ((student.getTestResult()) ? 1 : 0));
-            case 3 -> data.stream().filter(student -> Byte.parseByte(key) == student.getDiffTestResult());
-            case 4 -> data.stream().filter(student -> Byte.parseByte(key) == student.getExamResult());
-            case 5 -> data.stream().filter(student -> Byte.parseByte(key) == (byte) ((student.hasAttestation()) ? 1 : 0));
-            case 6 -> data.stream().filter(student -> key.equalsIgnoreCase(student.getName()));
-            case 7 -> data.stream().filter(student -> key.equalsIgnoreCase(student.getSurname()));
-            case 8 -> data.stream().filter(student -> key.equals(student.getBirthday().substring(6, 4)));
-        }
     }
 
     public String close(){
