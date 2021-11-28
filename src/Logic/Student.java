@@ -83,11 +83,9 @@ public class Student {
 
     @Override
     public String toString(){
-        String tableRow = String.format("|    %d    |       %s       |       %s       |       %s       |       %s       |       %d       |       %d       |\n",
-                id, name, surname, birthday, (testResult)? "зачет" : "незачет", diffTestResult, examResult);
-        for (int i = 0; i < tableRow.length(); ++i){
-            tableRow += "-";
-        }
-        return tableRow;
+        StringBuilder tableRow = new StringBuilder(String.format("|    %d    |       %s       |       %s       |       %s       |       %s       |       %d       |       %d       |\n",
+                id, name, surname, birthday, (testResult) ? "зачет" : "незачет", diffTestResult, examResult));
+        tableRow.append("-".repeat(Math.max(0, tableRow.length())));
+        return tableRow.toString();
     }
 }

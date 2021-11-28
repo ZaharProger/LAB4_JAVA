@@ -1,7 +1,5 @@
 package Logic;
 
-import Logic.Student;
-
 //Аттестационная работа
 public abstract class AttestationWork {
     protected byte questionsAmount;

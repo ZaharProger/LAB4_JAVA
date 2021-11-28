@@ -5,7 +5,6 @@ import Logic.DataBase;
 import Logic.Group;
 import Logic.Student;
 import java.util.Scanner;
-import java.util.function.DoubleToIntFunction;
 
 //Меню
 public class Menu {
@@ -27,12 +26,12 @@ public class Menu {
             choice = in.nextLine().trim();
             DataBase dataBase = new DataBase();
             Group group = new Group();
-            if (choice == "1") {
+            if (choice.equals("1")) {
                 System.out.print("Введите название группы: ");
                 String groupName = in.nextLine();
                 System.out.println(dataBase.connect(groupName));
             }
-            else if (choice == "2"){
+            else if (choice.equals("2")){
                 System.out.println("""
                     Заполните информацию о студенте по следующему шаблону:
                     ID (число), имя, фамилия, дата рождения(дд.мм.гггг), наличие зачета(да/нет, зачет/незачет), оценка за дифф зачет (число 2-5), оценка за экзамен (число 2-5)
@@ -53,7 +52,7 @@ public class Menu {
                     System.out.println("Введите информацию согласно шаблону!");
                 }
             }
-            else if (choice == "3"){
+            else if (choice.equals("3")){
                 System.out.print("Введите ID для удаления (число): ");
                 String idData = in.nextLine();
                 if (Analyzer.analyzeNum(idData, 1, Integer.MAX_VALUE)){
@@ -63,12 +62,13 @@ public class Menu {
                     System.out.println("Введите число!");
                 }
             }
-            else if (choice == "4"){
+            else if (choice.equals("4")){
+                System.out.println(dataBase.executeAllData());
                 group.fillGroup(dataBase.getData());
                 System.out.print(DataBase.getTableHead());
                 group.print();
             }
-            else if (choice == "5"){
+            else if (choice.equals("5")){
                 System.out.println("""
                     Выберите фильтр для установки:
                     1. Поиск по ID
@@ -99,17 +99,17 @@ public class Menu {
                     System.out.println("Несуществующий фильтр!");
                 }
             }
-            else if (choice == "6"){
+            else if (choice.equals("6")){
                 group.examineStudents();
                 System.out.println("Аттестация группы успешно проведена!");
             }
-            else if (choice == "0"){
+            else if (choice.equals("0")){
                 System.out.println(dataBase.close());
             }
             else{
                 System.out.println("Несуществующая команда!");
             }
-        } while (choice != "0");
+        } while (!choice.equals("0"));
 
         return Byte.parseByte(choice);
     }
