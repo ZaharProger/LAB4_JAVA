@@ -28,6 +28,6 @@ public class Exam extends AttestationWork{
             result += 1;
         }
 
-        student.setExamtResult(result);
+        student.setExamResult(result);
     }
 }

@@ -11,7 +11,7 @@ public class DataBase {
     private ArrayList<Student> data;
 
     public DataBase(){
-        data = new ArrayList<Student>();
+        data = new ArrayList<>();
         connection = null;
     }
 
@@ -36,7 +36,7 @@ public class DataBase {
             ResultSet executionResult = statement.executeQuery("SELECT * FROM students;");
             while (executionResult.next()){
                 data.add(new Student(executionResult.getInt("id"), executionResult.getString("student_name"), executionResult.getString("student_surname"),
-                        executionResult.getString("student_birthday"), executionResult.getByte("test_result"), executionResult.getByte("diff_result"),
+                        executionResult.getString("student_birthday"), executionResult.getBoolean("test_result"), executionResult.getByte("diff_result"),
                         executionResult.getByte("exam_result")));
             }
             result = (data.isEmpty())? "База данных пуста!" : "Чтение успешно завершено!";
