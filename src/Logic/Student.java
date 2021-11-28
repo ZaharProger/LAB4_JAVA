@@ -20,6 +20,7 @@ public class Student {
         this.examResult = examResult;
     }
 
+    //Определение аттестации студента
     public boolean hasAttestation(){
         return testResult && diffTestResult >= 3 && examResult >= 3;
     }
@@ -78,5 +79,15 @@ public class Student {
 
     public byte getExamResult() {
         return examResult;
+    }
+
+    @Override
+    public String toString(){
+        String tableRow = String.format("|    %d    |       %s       |       %s       |       %s       |       %s       |       %d       |       %d       |\n",
+                id, name, surname, birthday, (testResult)? "зачет" : "незачет", diffTestResult, examResult);
+        for (int i = 0; i < tableRow.length(); ++i){
+            tableRow += "-";
+        }
+        return tableRow;
     }
 }

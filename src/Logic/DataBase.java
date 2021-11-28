@@ -7,6 +7,8 @@ import java.util.ArrayList;
 //БД
 public class DataBase {
     private static final String CONNECTION_ADDRESS_MASK = "jdbc:sqlite:./";
+    private static final String TABLE_HEAD = "|    ID    |       Имя       |       Фамилия       |       Дата рождения       |" +
+                                            "       Наличие зачета       |       Оценка за дифф. зачет       |      Оценка за экзамен       |\n";
     private Connection connection;
     private ArrayList<Student> data;
 
@@ -19,11 +21,16 @@ public class DataBase {
         return data;
     }
 
+    public static String getTableHead() {
+        return TABLE_HEAD;
+    }
+
+    //Подключение к БД
     public String connect(String name){
         String result;
         try{
             DriverManager.registerDriver(new JDBC());
-            connection = DriverManager.getConnection(CONNECTION_ADDRESS_MASK + name);
+            connection = DriverManager.getConnection(CONNECTION_ADDRESS_MASK + name + ".db");
             create();
             result = "База данных успешно открыта!";
         }
@@ -34,6 +41,7 @@ public class DataBase {
         return result;
     }
 
+    //Создание таблицы в БД
     private void create() throws SQLException{
         try (Statement statement = connection.createStatement()){
             statement.execute("CREATE TABLE IF NOT EXISTS 'students' (" +
@@ -47,6 +55,7 @@ public class DataBase {
         }
     }
 
+    //Извлечение всех записей из БД
     public String executeAllData(){
         data.clear();
         String result;
@@ -66,13 +75,14 @@ public class DataBase {
         return result;
     }
 
+    //Добавление в БД
     public String addData(Student student){
         String result;
         try (Statement statement = connection.createStatement()){
             statement.execute(String.format("INSERT INTO students ('id', 'name', 'surname', 'birthday', 'test_result', 'diff_result', 'exam_result')" +
                     " VALUES (%d, '%s', '%s', '%s', %d, %d, %d);", student.getId(), student.getName(), student.getSurname(), student.getBirthday(),
                     student.getTestResult()? 1 : 0, student.getDiffTestResult(), student.getExamResult()));
-            result = "Информация о студенте успешно добавлена!";
+            result = String.format("Информация о студенте успешно добавлена под номером %d!", student.getId());
         }
         catch (SQLException exception){
             result = exception.getMessage();
@@ -81,6 +91,7 @@ public class DataBase {
         return result;
     }
 
+    //Удаление из БД
     public String removeData(int id){
         String result;
         try (Statement statement = connection.createStatement()){
@@ -100,6 +111,7 @@ public class DataBase {
         return result;
     }
 
+    //Закрытие БД
     public String close(){
         String result;
         try{

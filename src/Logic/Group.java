@@ -23,6 +23,7 @@ public class Group {
         return students;
     }
 
+    //Установка фильтров поиска по списку группы
     public String setSearchFilter(byte type, String key){
         String result;
         try{
@@ -49,11 +50,13 @@ public class Group {
         return result;
     }
 
+    //Вывод списка группы с учетом выбранных фильтров
     public void print(){
         Predicate<Student> totalFilter = filters.stream().reduce(student -> true, Predicate::and);
         students.stream().filter(totalFilter).forEach(System.out::println);
     }
 
+    //Проведение аттестационных работ у группы
     public void examineStudents(){
         Test test = new Test((byte)10);
         DiffTest diffTest = new DiffTest((byte)10);
