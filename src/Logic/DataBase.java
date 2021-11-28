@@ -36,7 +36,10 @@ public class DataBase {
             ResultSet executionResult = statement.executeQuery("SELECT * FROM students;");
             while (executionResult.next()){
                 data.add(new Student(executionResult.getInt("id"), executionResult.getString("student_name"), executionResult.getString("student_surname"),
-                        executionResult.getString("student_birthday"), executionResult.getByte("test_mark"), executionResult.getByte("exam_mark")));
+                        executionResult.getString("student_birthday"), executionResult.getByte("math_test_result"), executionResult.getByte("geography_test_result"),
+                        executionResult.getByte("biology_test_result"), executionResult.getByte("math_diff_result"), executionResult.getByte("geography_diff_result"),
+                        executionResult.getByte("biology_diff_result"), executionResult.getByte("math_exam_result"), executionResult.getByte("geography_exam_result"),
+                        executionResult.getByte("biology_exam_result")));
             }
             result = (data.isEmpty())? "База данных пуста!" : "Чтение успешно завершено!";
         }
