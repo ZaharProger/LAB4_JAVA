@@ -83,7 +83,7 @@ public class Student {
 
     @Override
     public String toString(){
-        StringBuilder tableRow = new StringBuilder(String.format("|    %d    |       %s       |       %s       |       %s       |       %s       |       %d       |       %d       |\n",
+        StringBuilder tableRow = new StringBuilder(String.format("|    %d    |       %s       |       %s       |       %s       |       %s       |           %d           |           %d           |\n",
                 id, name, surname, birthday, (testResult) ? "зачет" : "незачет", diffTestResult, examResult));
         tableRow.append("-".repeat(Math.max(0, tableRow.length())));
         return tableRow.toString();

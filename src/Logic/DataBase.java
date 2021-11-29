@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class DataBase {
     private static final String CONNECTION_ADDRESS_MASK = "jdbc:sqlite:./";
     private static final String TABLE_HEAD = "|    ID    |       Имя       |       Фамилия       |       Дата рождения       |" +
-                                            "       Наличие зачета       |       Оценка за дифф. зачет       |      Оценка за экзамен       |\n";
+                                            "       Зачет       |       Дифф. зачет       |      Экзамен       |\n";
     private Connection connection;
     private ArrayList<Student> data;
 
@@ -19,6 +19,10 @@ public class DataBase {
 
     public ArrayList<Student> getData(){
         return data;
+    }
+
+    public Connection getConnection(){
+        return connection;
     }
 
     public static String getTableHead() {
@@ -119,7 +123,7 @@ public class DataBase {
             connection.close();
             result = "База данных успешно закрыта!";
         }
-        catch (SQLException exception){
+        catch (SQLException | NullPointerException exception){
             result = exception.getMessage();
         }
 

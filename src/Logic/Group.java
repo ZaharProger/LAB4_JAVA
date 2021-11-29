@@ -15,6 +15,7 @@ public class Group {
     }
 
     public void fillGroup(ArrayList<Student> students) {
+        this.students.clear();
         this.students.addAll(students);
     }
 
@@ -57,14 +58,23 @@ public class Group {
     }
 
     //Проведение аттестационных работ у группы
-    public void examineStudents(){
-        Test test = new Test((byte)10);
-        DiffTest diffTest = new DiffTest((byte)10);
-        Exam exam = new Exam((byte)20);
-        for (Student student : students){
-            test.calculateResult(student, test.startWork());
-            diffTest.calculateResult(student, diffTest.startWork());
-            exam.calculateResult(student, exam.startWork());
-        }
+    public String examineStudents(){
+        String result;
+       if (!students.isEmpty()){
+           Test test = new Test((byte)10);
+           DiffTest diffTest = new DiffTest((byte)10);
+           Exam exam = new Exam((byte)20);
+           for (Student student : students){
+               test.calculateResult(student, test.startWork());
+               diffTest.calculateResult(student, diffTest.startWork());
+               exam.calculateResult(student, exam.startWork());
+           }
+           result = "Аттестация группы успешно проведена!";
+       }
+       else{
+           result = "Группа пуста!";
+       }
+
+        return result;
     }
 }
